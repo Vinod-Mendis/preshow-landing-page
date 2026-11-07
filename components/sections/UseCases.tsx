@@ -76,7 +76,7 @@ export default function UseCases() {
           role="tabpanel"
           id="use-case-panel"
           aria-labelledby={`use-case-tab-${active}`}
-          className="grid overflow-hidden rounded-b-md rounded-tr-md bg-zinc-200/70 md:min-h-[360px] md:grid-cols-[39fr_61fr]"
+          className="grid overflow-hidden rounded-b-md rounded-tr-md bg-zinc-200/70 md:min-h-[400px] md:grid-cols-[46fr_54fr]"
         >
           <div className="relative aspect-[4/3] md:aspect-auto">
             {/* All four stay mounted so switching tabs never reloads one; hidden ones sleep. */}

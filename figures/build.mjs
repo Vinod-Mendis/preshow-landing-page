@@ -57,7 +57,18 @@ const embed = ({ plate, fill }) => `<style id="preshow-embed">
     --hairline-plate: ${plate}; --hairline-hi: #f97316;
     --hairline-edge: #9f9fa9; --hairline-mid: #c4c4ca; --hairline-lo: #d6d6db;
   }
-</style>
+</style>${fill === "contain" ? `
+<script>
+  /* Fill the frame: scale the drawing up about its own middle until its box is 94% of the stage, the
+     figures being drawn with margin to spare for their lifts. The box is the same in every pose. */
+  addEventListener("load", () => requestAnimationFrame(() => {
+    const svg = document.querySelector("#stage svg"), g = svg && svg.querySelector("g");
+    if (!g) return;
+    const b = g.getBBox(), k = Math.min(1.35, (400 * 0.94) / b.width, (320 * 0.94) / b.height);
+    const tx = (k * (200 - (b.x + b.width / 2))) / 400 * 100, ty = (k * (160 - (b.y + b.height / 2))) / 320 * 100;
+    svg.style.transform = "translate(" + tx + "%," + ty + "%) scale(" + k + ")";
+  }));
+</script>` : ""}
 </head>`;
 
 const at = process.argv.indexOf("--sources"), sources = at > 0 ? process.argv[at + 1] : null;
