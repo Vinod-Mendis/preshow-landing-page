@@ -62,8 +62,8 @@ export default function UseCases() {
                 onClick={() => setActive(i)}
                 className={`h-8 w-24 rounded-t-md text-xs transition-colors ${
                   selected
-                    ? "bg-zinc-200/70 text-zinc-500"
-                    : "bg-zinc-100 text-zinc-400 hover:bg-zinc-200/50"
+                    ? "bg-zinc-50 text-zinc-500"
+                    : "bg-zinc-100/70 text-zinc-400 hover:bg-zinc-100"
                 }`}
               >
                 {String(i + 1).padStart(2, "0")}
@@ -76,7 +76,7 @@ export default function UseCases() {
           role="tabpanel"
           id="use-case-panel"
           aria-labelledby={`use-case-tab-${active}`}
-          className="grid overflow-hidden rounded-b-md rounded-tr-md bg-zinc-200/70 md:min-h-[400px] md:grid-cols-[46fr_54fr]"
+          className="grid overflow-hidden rounded-b-md rounded-tr-md bg-zinc-50 md:min-h-[400px] md:grid-cols-[46fr_54fr]"
         >
           <div className="relative aspect-[4/3] md:aspect-auto">
             {/* All four stay mounted so switching tabs never reloads one; hidden ones sleep. */}

@@ -6,6 +6,18 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-dm-sans);
+
+  /* The header logo turns once, a full clockwise turn, when the page loads. */
+  --animate-logo-spin: logo-spin 1.2s cubic-bezier(0.32, 0.72, 0, 1) 0.3s 1;
+
+  @keyframes logo-spin {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
+  }
 }
 
 

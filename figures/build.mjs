@@ -22,13 +22,13 @@ const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 
 /*
  * Plates are opaque, so each set's plate is the colour its card renders, measured in the browser:
- * steps sit on bg-zinc-200/60 over bg-zinc-100, use cases on bg-zinc-200/70 over the white page.
+ * steps and use cases both sit on bg-zinc-50 (#fafafa).
  * fill: "width" fills the card's width and crops top and bottom (the steps' 1.7:1 cards);
  * "contain" fits the whole 5:4 stage inside the card (the use-case panel, 5:4 to 4:3).
  */
 const SETS = [
   {
-    shared: ["kit.js", "booth.js"], plate: "#ebebed", fill: "width",
+    shared: ["kit.js", "booth.js"], plate: "#fafafa", fill: "width",
     figures: [
       ["upload.js", "step-1.html", "Upload your model"],
       ["screens.js", "step-2.html", "Place your screens"],
@@ -36,7 +36,7 @@ const SETS = [
     ],
   },
   {
-    shared: ["kit.js"], plate: "#ececee", fill: "contain",
+    shared: ["kit.js"], plate: "#fafafa", fill: "contain",
     figures: [
       ["tradeshow.js", "use-case-1.html", "Trade show booths"],
       ["retail.js", "use-case-2.html", "Retail stores"],

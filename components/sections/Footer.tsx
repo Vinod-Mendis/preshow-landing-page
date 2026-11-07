@@ -50,7 +50,7 @@ export default function Footer() {
       </div>
 
       <div className="absolute inset-x-0 bottom-[3%] flex flex-col items-center gap-1">
-        <Image src="/images/logo.png" alt="" width={28} height={13} />
+        <Image src="/images/logo.svg" alt="" width={28} height={13} />
         <span className="text-xs text-zinc-300">Pre-show.</span>
       </div>
     </footer>

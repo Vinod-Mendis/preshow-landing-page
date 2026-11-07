@@ -10,11 +10,16 @@ const navLinks = [
   { label: "Use cases", href: "#use-cases" },
 ];
 
+// Placeholder until the real clips exist (public/media/details-N.mp4): one stock video,
+// resized by Cloudinary to 1080px wide so four cards don't pull the 16 MB 4K original.
+const PLACEHOLDER_VIDEO =
+  "https://res.cloudinary.com/vccpsacloud/video/upload/q_auto,w_1080/v1774428895/9329508-uhd_2160_4096_25fps_nitgxj.mp4";
+
 const details = [
-  { title: "Orbit and Walk Navigation", image: "/images/details-1.png" },
-  { title: "Real-Scale Custom Screens", image: "/images/details-2.png" },
-  { title: "Persistent Video Playback", image: "/images/details-3.png" },
-  { title: "Live Web Pages in 3D", image: "/images/details-4.png" },
+  { title: "Orbit and Walk Navigation", video: PLACEHOLDER_VIDEO },
+  { title: "Real-Scale Custom Screens", video: PLACEHOLDER_VIDEO },
+  { title: "Persistent Video Playback", video: PLACEHOLDER_VIDEO },
+  { title: "Live Web Pages in 3D", video: PLACEHOLDER_VIDEO },
 ];
 
 const steps = [
@@ -48,13 +53,14 @@ export default function Home() {
         <HeroBackground />
 
         <header className="relative z-10 flex items-center justify-center gap-6 px-4 pt-5 sm:gap-10">
-          <a href="#home" aria-label="Pre-show home" className="shrink-0">
+          <a href="#home" aria-label="Pre-show home" className="group shrink-0">
             <Image
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt="Pre-show logo"
               width={44}
               height={20}
               priority
+              className="transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:rotate-360 group-focus-visible:rotate-360 motion-reduce:transition-none"
             />
           </a>
           <nav aria-label="Primary">
@@ -99,7 +105,7 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col items-center bg-white px-4 pb-32 pt-12 text-center sm:pt-16">
-        <Image src="/images/logo.png" alt="" width={28} height={13} />
+        <Image src="/images/logo.svg" alt="" width={28} height={13} />
         <p className="mt-5 max-w-[34rem] text-[clamp(1.5rem,2.6vw,1.75rem)] font-medium leading-[1.15] tracking-[-0.02em]">
           Walk through your booth before it&rsquo;s built. Place real-scale screens,
           play videos, and run live websites right inside the 3D space.
@@ -124,12 +130,15 @@ export default function Home() {
             <li key={item.title}>
               <div className="rounded-lg bg-zinc-100 p-[4.5%]">
                 <div className="relative aspect-[1.43] overflow-hidden rounded-[3px] bg-zinc-900">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(min-width: 1200px) 540px, (min-width: 640px) 45vw, 90vw"
-                    className="object-cover"
+                  <video
+                    src={item.video}
+                    aria-label={item.title}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>
               </div>
@@ -156,10 +165,10 @@ export default function Home() {
           {steps.map((step) => (
             <li
               key={step.title}
-              className="overflow-hidden rounded-md bg-zinc-100"
+              className="overflow-hidden rounded-md bg-zinc-50"
             >
-              <div className="h-[18px] bg-zinc-200/70" />
-              <div className="relative aspect-[1.7] bg-zinc-200/60">
+              <div className="h-[18px] bg-zinc-50" />
+              <div className="relative aspect-[1.7] bg-zinc-50">
                 <iframe
                   src={step.figure}
                   title={`${step.title}: interactive illustration`}
@@ -167,7 +176,7 @@ export default function Home() {
                   className="absolute inset-0 h-full w-full border-0 bg-transparent"
                 />
               </div>
-              <div className="bg-zinc-200/60 px-5 pb-5 pt-3">
+              <div className="bg-zinc-50 px-5 pb-5 pt-3">
                 <h3 className="text-[13px] font-medium">{step.title}</h3>
                 <p className="mt-2 text-[13px] leading-snug text-zinc-400">
                   {step.description}
