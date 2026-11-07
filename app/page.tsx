@@ -22,19 +22,19 @@ const steps = [
     title: "Upload your model",
     description:
       "Drop a .glb or .gltf file and set its units to real-world scale.",
-    image: "/images/step-1.png",
+    figure: "/figures/step-1.html?play=1",
   },
   {
     title: "Place your screens",
     description:
       "Add screens at true size, then load a video or a live web page on each.",
-    image: "/images/step-2.png",
+    figure: "/figures/step-2.html?play=1",
   },
   {
     title: "Walk through it",
     description:
       "Orbit the booth or walk it at eye level, and share the layout with your team.",
-    image: "/images/step-3.png",
+    figure: "/figures/step-3.html?play=1",
   },
 ];
 
@@ -159,13 +159,12 @@ export default function Home() {
               className="overflow-hidden rounded-md bg-zinc-100"
             >
               <div className="h-[18px] bg-zinc-200/70" />
-              <div className="relative aspect-[1.7] bg-zinc-50">
-                <Image
-                  src={step.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1200px) 370px, (min-width: 768px) 30vw, 90vw"
-                  className="object-contain"
+              <div className="relative aspect-[1.7] bg-zinc-200/60">
+                <iframe
+                  src={step.figure}
+                  title={`${step.title}: interactive illustration`}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full border-0 bg-transparent"
                 />
               </div>
               <div className="bg-zinc-200/60 px-5 pb-5 pt-3">

@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The vendored hairline-create skill, and the figures' shared fragment,
+    // which only stands on its own once figures/build.mjs puts it in front of a figure.
+    ".agents/**",
+    "figures/booth.js",
   ]),
 ]);
 
