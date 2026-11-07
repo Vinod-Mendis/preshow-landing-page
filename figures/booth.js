@@ -1,14 +1,9 @@
 /*
- * booth.js: shared by the three Pre-show figures, and put in front of each one
- * by build.mjs. The booth, its screens, and what the screens play, in world
- * units of 16 to the metre. Every figure draws the same booth with the same
- * camera, so the three read as one sequence.
+ * booth.js: shared by the three "How it works" figures, and put between kit.js
+ * and each of them by build.mjs. The booth and its screens, in world units of
+ * 16 to the metre. Every figure draws the same booth with the same camera, so
+ * the three read as one sequence.
  */
-const {
-  Cam, clamp, facing, fit, flatDot, lerp, mk, place, pointer, poly, prism, proj, put, register,
-  rings, ringAt, rrect, r2, seg, solid, disposer, spring, stepS, tween, tset, tval, tdone, unproj,
-} = HL;
-
 const M = 16, BW = 144, BD = 80, WT = 5, WH = 42, GZ = -4, TX = 9, S = 1.72;
 /** The booth's solids at full size: x0, y0, x1, y1, corner, crease, z0, z1. ORDER paints them back to front. */
 const PARTS = {
@@ -66,41 +61,3 @@ const SCREENS = [
   { at: onWall, u0: 14, u1: 52, v0: 22, v1: 37.6, kind: "video", name: "21:9", foot: [33, WT] },
   { at: onWall, u0: 64, u1: 106, v0: 11, v1: 34.6, kind: "web", name: "16:9", foot: [85, WT] },
 ];
-
-/** A screen's bezel back, face, glass, and what it plays, at offset o off its mount. */
-function screenPaths(P, sc, o = 0) {
-  const w = (u, v, d = 0) => P(...sc.at(u, v, o + d));
-  const bez = rrect(sc.u0, sc.v0, sc.u1, sc.v1, 1.2, 3);
-  const gl = rrect(sc.u0 + 1.5, sc.v0 + 1.5, sc.u1 - 1.5, sc.v1 - 1.5, 0.5, 2);
-  // content, in the glass's own 0..1 square
-  const W = sc.u1 - sc.u0 - 5, H = sc.v1 - sc.v0 - 5;
-  const q = (a, b) => w(sc.u0 + 2.5 + a * W, sc.v0 + 2.5 + b * H);
-  const box = (a0, b0, a1, b1) => poly([q(a0, b0), q(a1, b0), q(a1, b1), q(a0, b1)]);
-  let play;
-  if (sc.kind === "web") {
-    // a page: a nav bar with its links, a headline, and a row of three cards
-    play = seg(q(0, 0.86), q(1, 0.86)) + seg(q(0.62, 0.93), q(0.7, 0.93)) + seg(q(0.76, 0.93), q(0.84, 0.93)) + seg(q(0.9, 0.93), q(1, 0.93)) +
-      seg(q(0, 0.68), q(0.56, 0.68)) + seg(q(0, 0.57), q(0.36, 0.57)) + box(0, 0.06, 0.3, 0.42) + box(0.35, 0.06, 0.65, 0.42) + box(0.7, 0.06, 1, 0.42);
-  } else {
-    // a frame of film: hills under a sun, and the progress bar with its playhead
-    const sun = [];
-    for (let k = 0; k < 10; k++) sun.push(q(0.76 + Math.cos(k * 0.628) * 0.07, 0.74 + Math.sin(k * 0.628) * 0.07 * (W / H)));
-    play = "M" + [[0, 0.3], [0.24, 0.6], [0.42, 0.42], [0.64, 0.74], [1, 0.34]].map(([a, b]) => q(a, b).join(",")).join("L") +
-      poly(sun) + seg(q(0, 0.08), q(1, 0.08)) + seg(q(0.38, 0.03), q(0.38, 0.13));
-  }
-  return {
-    back: poly(bez.map((p) => w(p.u, p.v, -1.4))),
-    face: poly(bez.map((p) => w(p.u, p.v))),
-    glass: poly(gl.map((p) => w(p.u, p.v))),
-    play,
-  };
-}
-
-/** Elements for one screen, appended into g; set(o) redraws them at offset o. */
-function screenEls(P, sc, g) {
-  const el = {
-    back: mk("path", { class: "lo" }, g), face: mk("path", { class: "sil" }, g),
-    glass: mk("path", { class: "nf lo" }, g), play: mk("path", { class: "nf lo" }, g),
-  };
-  return { sc, el, set: (o) => { const q = screenPaths(P, sc, o); for (const k in q) el[k].setAttribute("d", q[k]); } };
-}
