@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HeroBackground from "@/components/HeroBackground";
 import Footer from "@/components/sections/Footer";
 import UseCases from "@/components/sections/UseCases";
 
@@ -42,8 +43,10 @@ export default function Home() {
     <main>
       <section
         id="home"
-        className="relative overflow-hidden text-black"
+        className="relative isolate overflow-hidden text-black"
       >
+        <HeroBackground />
+
         <header className="relative z-10 flex items-center justify-center gap-6 px-4 pt-5 sm:gap-10">
           <a href="#home" aria-label="Pre-show home" className="shrink-0">
             <Image

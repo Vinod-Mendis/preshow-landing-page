@@ -1,17 +1,29 @@
 import Image from "next/image";
+import FooterWayglimBackground from "@/components/FooterWayglimBackground";
+
+// The animated wave: full width, this slice of the footer, faded top and bottom.
+const WAVE_TOP = 12; // % of the footer height
+const WAVE_HEIGHT = 55; // % of the footer height
+const waveMask =
+  "linear-gradient(to bottom, transparent, black 25%, black 65%, transparent)";
 
 export default function Footer() {
   return (
     <footer className="relative isolate overflow-hidden bg-white">
-      {/* Soft rainbow ribbon behind the device */}
+      {/* Animated wave behind the device (not CSS-scaled; cheap via the
+          half-resolution maxPixelRatio in FooterWayglimBackground.jsx) */}
       <div
         aria-hidden
-        className="absolute inset-x-[-10%] top-[22%] -z-10 h-[16%] -rotate-3 opacity-80 blur-2xl"
+        className="pointer-events-none absolute inset-x-0 -z-10 overflow-hidden"
         style={{
-          backgroundImage:
-            "linear-gradient(90deg, #8db9ff 0%, #b9d4ff 22%, #ffd9a8 42%, #ff9d6e 55%, #f4b0ff 72%, #a9cbff 100%)",
+          top: `${WAVE_TOP}%`,
+          height: `${WAVE_HEIGHT}%`,
+          maskImage: waveMask,
+          WebkitMaskImage: waveMask,
         }}
-      />
+      >
+        <FooterWayglimBackground />
+      </div>
       {/* Gray arch with a white arch cut into it */}
       <div
         aria-hidden
